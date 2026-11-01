@@ -11,6 +11,7 @@
 #define X_JOISTICK_PIN 3
 #define Y_JOISTICK_PIN 2
 #define EXIT_BUTTON_PIN 8
+#define BUZZER_PIN 7
 
 #define HEIGTH 16
 #define LENGTH 16
@@ -674,7 +675,7 @@ char getdir(long double time, int snakelen)
 void setup()
 {
   pinMode(EXIT_BUTTON_PIN, INPUT_PULLUP);
-
+  pinMode(BUZZER_PIN, OUTPUT);
   lcd.init();
   lcd.backlight();
 
@@ -711,6 +712,7 @@ void setup()
 
   while (true)
   {
+    digitalWrite(BUZZER_PIN, LOW);
     char c = getdir(slt, applecount);
 
     if (c == 'E')
@@ -718,6 +720,7 @@ void setup()
 
     if (a)
     {
+      digitalWrite(BUZZER_PIN, HIGH);
       applecount++;
       if (slt * SPEEDDEV >= MINTIME)
         slt *= SPEEDDEV;
