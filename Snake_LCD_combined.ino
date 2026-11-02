@@ -27,6 +27,23 @@ int applecount = 0;
 
 // Pixel buffer from LCD_pixel_control.ino
 byte display[LINE_WITH][LINE_HIGHT * CHAR_HIGHT] = {{B0, B0}, {B11111111, B0}};
+// -----------------------------------------------------------------------------
+
+// Game fild
+byte fild[LENGTH/2+LENGTH%2][HEIGTH] = {{B0}};
+/*
+a half byte for every block
+first 3 bits from left side - direction:
+0001: up
+0010: right
+0011: down
+0100: left
+--------------------------------------------------------------------------------
+0000 if block is empty, 1-4 if not:
+0001: snake is on this block
+0000: empty
+*/
+// -----------------------------------------------------------------------------
 
 // Snake linked-list element
 typedef struct listelement
@@ -38,24 +55,24 @@ typedef struct listelement
 } listelement;
 
 // Linked-list functions used by the original Snake logic
-listelement* append(void *value, long length, char type, listelement *pn, long pos);
+/*listelement* append(void *value, long length, char type, listelement *pn, long pos);
 listelement* pop(listelement *pn, long pos);
 int copyarr(void *to, void *from, char type, long length);
 long len(listelement *pn);
 int rmlist(listelement *pn);
 listelement* retel(listelement *st, long pos);
-int printel(listelement* pn, char btw[]);
+int printel(listelement* pn, char btw[]);*/
 
 // Snake game functions
-listelement *movesnake(char d, listelement *st, int x, int y, int length, int heigth, char apple);
-int checksnake(listelement *snake);
+listelement *movesnake(char d, listelement *st, int x, int y, int length, int heigth, char apple);//TODO
+int checksnake(listelement *snake);//TODO
 int createapple(char *feld, int length, int heigth, int snakelen, int r);
-int checkapple(listelement *snake, int apple, int length);
+int checkapple(listelement *snake, int apple, int length);//TODO
 
 // Field functions
-char *createfeld(int heigth, int length);
-int updatesnake(listelement *snake, char *feld, int length, int heigth);
-int drawfeld(char *st, int heigth, int length);
+//char *createfeld(int heigth, int length);//TODO
+int updatesnake(listelement *snake, char *feld, int length, int heigth);//TODO
+int drawfeld(char *st, int heigth, int length);//TODO
 
 // LCD joystick and pixel functions
 char get_x_direction();
@@ -67,10 +84,6 @@ void draw(byte display[LINE_WITH][LINE_HIGHT * CHAR_HIGHT]);
 
 // Game input
 char getdir(long double time, int snakelen);
-
-// -----------------------------------------------------------------------------
-// LCD_pixel_control.ino: joystick direction
-// -----------------------------------------------------------------------------
 
 char get_x_direction()
 {
@@ -183,7 +196,7 @@ void draw(byte display[LINE_WITH][LINE_HIGHT * CHAR_HIGHT])
 // -----------------------------------------------------------------------------
 // linkedlistlib.c: functions required by the Snake implementation
 // -----------------------------------------------------------------------------
-
+/*
 listelement* append(void *value, long length, char type, listelement *pn, long pos)
 {
   listelement *st = pn;
@@ -445,7 +458,7 @@ int printel(listelement* pn, char btw[])
       break;
   }
   return 0;
-}
+}*/
 
 // -----------------------------------------------------------------------------
 // snake.c: original game logic
@@ -573,7 +586,7 @@ int checkapple(listelement *snake, int apple, int length)
 // feld.c: game field and rendering adapted to the LCD pixel buffer
 // -----------------------------------------------------------------------------
 
-char *createfeld(int heigth, int length)
+/*char *createfeld(int heigth, int length)
 {
   char *st = (char*)malloc(sizeof(char) * heigth * length);
   if (st == NULL)
@@ -583,7 +596,7 @@ char *createfeld(int heigth, int length)
     st[i] = '.';
 
   return st;
-}
+}*/
 
 int updatesnake(listelement *snake, char *feld, int length, int heigth)
 {
